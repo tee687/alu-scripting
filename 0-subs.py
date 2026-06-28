@@ -21,8 +21,9 @@ def fetch_posts_recursive(subreddit, after=None, accumulated_posts=None):
     if after:
         params["after"] = after
 
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
+    response = requests.get(
+        url, headers=headers, params=params, allow_redirects=False
+    )
 
     if response.status_code != 200:
         return None
