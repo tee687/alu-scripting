@@ -10,26 +10,22 @@ def top_ten(subreddit):
     Queries the Reddit API and prints the titles of the first 10 hot posts
     listed for a given subreddit. If invalid, prints None.
     """
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     headers = {
-        "User-Agent": "Ubuntu14.04:API.Advanced:v1.0.0 (by /u/student)"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
-
-    response = requests.get(url, headers=headers, allow_redirects=False)
-
-    if response.status_code != 200:
-        print(None)
-        return
+    params = {"limit": 10}
 
     try:
-        data = response.json().get("data", {})
-        children = data.get("children", [])
-
-        if not children:
+        response = requests.get(url, headers=headers, params=params,
+                                allow_redirects=False)
+        
+        if response.status_code == 200:
+            data = response.json().get("data", {})
+            children = data.get("children", [])
+            for post in children:
+                print(post.get("data", {}).get("title"))
+        else:
             print(None)
-            return
-
-        for post in children:
-            print(post.get("data", {}).get("title"))
     except Exception:
         print(None)
