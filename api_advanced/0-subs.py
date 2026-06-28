@@ -1,5 +1,3 @@
-# Write the clean code directly into that new path
-cat << 'EOF' > /alu-scripting/0x16-api_advanced/0-subs.py
 #!/usr/bin/python3
 """
 Module for querying the Reddit API and returning the number of subscribers.
